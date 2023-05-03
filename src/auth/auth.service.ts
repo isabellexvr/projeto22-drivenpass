@@ -18,12 +18,12 @@ export class AuthService {
 
     createToken(user: User) {
         const token = this.jwt.signAsync({
-            id: user.id,
             email: user.email
         }, {
             expiresIn: this.EXPIRATION_TIME,
             issuer: this.ISSUER,
-            audience: this.AUDIENCE
+            audience: this.AUDIENCE,
+            subject: String(user.id),
         });
         return token
     };
