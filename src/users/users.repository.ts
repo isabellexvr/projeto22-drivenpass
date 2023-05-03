@@ -15,4 +15,8 @@ export class UsersRepository {
 
         return user;
     }
+
+    findByEmail(email: string){
+        return this.prisma.user.findFirst({where: {email}})
+    }
 }
