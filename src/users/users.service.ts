@@ -13,4 +13,8 @@ export class UsersService {
     async createUser(user: CreateUserDTO){
         return await this.usersRepository.create({...user, password: bcrypt.hashSync(user.password, this.ROUNDS)});
     }
+
+    async getUserById(id: number){
+        const user = await this.usersRepository
+    }
 }

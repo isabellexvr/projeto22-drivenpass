@@ -9,4 +9,10 @@ export class UsersRepository {
     create(@Body() data: CreateUserDTO) {
         return this.prisma.user.create({ data });
     }
+
+    async getById(id: number){
+        const user = await this.prisma.user.findUnique({where: {id}});
+
+        return user;
+    }
 }
