@@ -16,4 +16,17 @@ export class CredentialsRepository {
     create(@Body() data: CredentialPayload) {
         return this.prisma.credential.create({ data })
     }
+    findAllByUser(id: number) {
+        return this.prisma.credential.findMany({ where: { userId: id } })
+    }
+    isUserTheCredentialOwner(credentialId: number, userId: number) {
+        return this.prisma.credential.findFirst({
+            where: {
+                AND: [
+                    { id: credentialId },
+                    { userId }
+                ]
+            }
+        })
+    }
 }
