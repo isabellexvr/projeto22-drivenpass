@@ -22,7 +22,8 @@ model User {
 model Credential {
   id       Int    @id @default(autoincrement())
   userId   Int
-  label    String @unique
+  title    String @unique
+  url      String
   password String
 
   users User @relation(fields: [userId], references: [id])
