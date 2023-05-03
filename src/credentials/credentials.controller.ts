@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { CredentialsService } from './credentials.service';
 import { CreateCredentialDTO } from './dtos/create-credential.dto';
@@ -20,8 +20,15 @@ export class CredentialsController {
         return await this.credentialsService.findAllUserCredentials(user.id);
     }
 
+    @UseGuards(AuthGuard)
     @Get("unique/:credentialId")
     async findCredentialById(@Param("credentialId", ParseIntPipe) credentialId: number, @LoggedUser() user) {
         return await this.credentialsService.findById(credentialId, user.id);
+    }
+
+    @UseGuards(AuthGuard)
+    @Delete("delete/:credentialId")
+    async deleteCredential(@Param("credentialId", ParseIntPipe) credentialId: number, @LoggedUser() user){
+        return await this.credentialsService.deleteOne(credentialId, user.id);
     }
 }

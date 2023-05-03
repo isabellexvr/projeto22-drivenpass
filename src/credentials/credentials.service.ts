@@ -24,6 +24,12 @@ export class CredentialsService {
         return { ...credential, password: cryptr.decrypt(credential.password) }
     }
 
+    async deleteOne(credentialId: number, userId: number){
+        const credential = await this.credentialsRepository.isUserTheCredentialOwner(credentialId, userId);
+        if (!credential) throw new NotFoundException('A credencial não existe ou não pertence ao usuário.');
+        return await this.credentialsRepository.deleteOne(credentialId);
+    }
+
 }
 
 

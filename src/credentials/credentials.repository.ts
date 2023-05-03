@@ -29,4 +29,9 @@ export class CredentialsRepository {
             }
         })
     }
+    deleteOne(credentialId: number) {
+        return this.prisma.credential.delete({
+            where: {id: credentialId}
+        })
+    }
 }
